@@ -41,19 +41,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        try {
-            LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            Location locYo = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            LatLng yo = new LatLng(locYo.getLatitude(), locYo.getLongitude());
-
-            MarkerOptions marcador = new MarkerOptions();
-            mMap.addMarker(marcador.position(yo).title("Aquí estas!!!!!").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yo, 18));
-        }catch (Exception e){
-
-        }
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        LatLng miCasa = new LatLng(25.589200, -108.47346);
+        mMap.addMarker(new MarkerOptions().position(miCasa).title("15325061080038 Félix López Alfonso Neil").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(miCasa, 18));
     }
 }
