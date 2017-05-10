@@ -19,12 +19,11 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     //declaro dos variables para latitud y longitud de tipo double
-    double latitud = 0;
-    double longitud = 0;
+    double lat = 0;
+    double lng = 0;
     private GoogleMap mMap;
     //creo un Marker llamado marcador para utilizar sus propiedades al crear nuevos Markers
     private Marker marcador;
@@ -39,7 +38,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {
 
-        }
+        }//
 
         @Override
         public void onProviderEnabled(String provider) {
@@ -80,13 +79,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         marcador = mMap.addMarker(new MarkerOptions().title("Mi posición actual").position(puntoCoordenado).icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));
         mMap.animateCamera(ubicacion); //El mapa me lleva a la posición del CameraUpadte 'ubicacion'
     }
-
+    private Ubicacion uCoordenadas;
+    private Alumno uAlumno;
     //Creo un método para actualizar la ubicación
     private void actualizarUbicacion(Location location) {
         if (location != null) {
-            latitud = location.getLatitude(); //Asigno a latitud el valor de la latitud de location
-            longitud = location.getLongitude(); //Asigno a longitud el valor de la longitud de location
-            agregarMarcador(latitud, longitud); //Mando llamar al método agregarMarcador mandandole como parámetros latitud y longitud
+            lat = location.getLatitude(); //Asigno a latitud el valor de la latitud de location
+            lng = location.getLongitude(); //Asigno a longitud el valor de la longitud de location
+            agregarMarcador(lat, lng); //Mando llamar al método agregarMarcador mandandole como parámetros latitud y longitud
+            uAlumno=new Alumno();
+            uAlumno.NoControl="15325061080038";
+            uAlumno.Nombre="Alfonso Neil Felix Lopez";
+            uCoordenadas=new Ubicacion(
+                    "http://innersoft.dnsalias.com/moviles/4ampr/15325061080038/ubicacion_insert.php", lat, lng, uAlumno);
+            uCoordenadas.Nueva();
         }
     }
 
